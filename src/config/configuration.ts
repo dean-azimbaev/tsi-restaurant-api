@@ -6,7 +6,7 @@ import { dbConfig } from './database';
 export default registerAs('config', () => ({
   env: process.env.ENV,
   app: {
-    http: { port: +process.env.HTTP_PORT },
+    http: { port: +process.env.PORT },
     host: process.env.HOST,
   },
   jwtWorkerUrl: process.env.JWT_WORKER_URL,

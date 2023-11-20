@@ -19,7 +19,7 @@ import { databaseConfigSchema } from './database';
             Environment.PRODUCTION,
           )
           .default(Environment.DEVELOPMENT),
-        HTTP_PORT: Joi.number().default(5000),
+        PORT: Joi.number().default(5000),
         ...swaggerConfigSchema,
         ...databaseConfigSchema,
       }),
