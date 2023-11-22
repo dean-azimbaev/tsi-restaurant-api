@@ -20,7 +20,10 @@ export class TokenService implements ITokenService {
     return [access, refresh];
   }
 
-  private async _sign({ id }: User, type: 'refresh' | 'access'): Promise<string> {
+  private async _sign(
+    { id }: User,
+    type: 'refresh' | 'access',
+  ): Promise<string> {
     //Refresh tokens lives twice as long as access tokens
     const exp =
       type == 'access'
@@ -59,10 +62,6 @@ export class TokenService implements ITokenService {
 
     if (token.type !== 'access' && token.type !== 'refresh') {
       throw new Error('Invalid token type');
-    }
-
-    if (token.isExpired) {
-      throw new Error('Token expired');
     }
 
     return token;

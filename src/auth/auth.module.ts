@@ -18,5 +18,6 @@ import { Ports } from './port';
   ],
   controllers: [AuthController],
   providers: [AuthInteractor, AuthGuard, DomainRegistry, ...Ports, ...Pipes],
+  exports: [AuthGuard, DomainRegistry],
 })
 export class AuthModule {}
