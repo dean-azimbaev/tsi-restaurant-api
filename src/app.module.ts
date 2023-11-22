@@ -4,9 +4,11 @@ import { ConfigService, ConfigurationModule } from './config';
 import { DishModule } from './dish';
 import { CategoryModule } from './category';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth';
 
 @Module({
   imports: [
+    AuthModule,
     ConfigurationModule,
     DishModule,
     CategoryModule,

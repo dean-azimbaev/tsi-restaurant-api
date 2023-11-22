@@ -7,6 +7,7 @@ import { ConfigService as Config } from './config.service';
 import configuration from './configuration';
 import { swaggerConfigSchema } from './swagger';
 import { databaseConfigSchema } from './database';
+import { jwtConfigSchema } from './jwt';
 
 @Module({
   imports: [
@@ -14,14 +15,12 @@ import { databaseConfigSchema } from './database';
       load: [configuration],
       validationSchema: Joi.object({
         ENV: Joi.string()
-          .valid(
-            Environment.DEVELOPMENT,
-            Environment.PRODUCTION,
-          )
+          .valid(Environment.DEVELOPMENT, Environment.PRODUCTION)
           .default(Environment.DEVELOPMENT),
         PORT: Joi.number().default(5000),
         ...swaggerConfigSchema,
         ...databaseConfigSchema,
+        ...jwtConfigSchema,
       }),
     }),
   ],

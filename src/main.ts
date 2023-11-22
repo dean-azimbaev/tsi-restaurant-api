@@ -21,7 +21,7 @@ async function bootstrap() {
     .setDescription(swagger.info.description)
     .setVersion(swagger.info.version)
     .setExternalDoc('Postman Collection', `${host}/${swagger.path}-json`)
-    .build();
+    .build()
 
   const document = SwaggerModule.createDocument(app, config);
 

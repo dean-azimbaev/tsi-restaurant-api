@@ -5,7 +5,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { SwaggerOptions } from './swagger';
 import { AppOptions } from './app.options';
 import { Environment } from './environment';
-import { RedisOptions } from './database';
+import { JWTOptions } from './jwt';
 
 @Injectable()
 export class ConfigService {
@@ -25,5 +25,9 @@ export class ConfigService {
 
   get database(): TypeOrmModuleOptions {
     return this.config.get('config.database.pg');
+  }
+
+  get jwt(): JWTOptions {
+    return this.config.get('config.jwt');
   }
 }

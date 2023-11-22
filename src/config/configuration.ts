@@ -2,6 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 import { swaggerConfig } from './swagger';
 import { dbConfig } from './database';
+import { jwtConfig } from './jwt';
 
 export default registerAs('config', () => ({
   env: process.env.ENV,
@@ -13,4 +14,5 @@ export default registerAs('config', () => ({
   cbsProxyUrl: process.env.CBS_PROXY_URL,
   ...swaggerConfig(),
   ...dbConfig(),
+  ...jwtConfig(),
 }));
