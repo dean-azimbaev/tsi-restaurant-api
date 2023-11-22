@@ -20,8 +20,13 @@ async function bootstrap() {
     .setTitle(swagger.info.title)
     .setDescription(swagger.info.description)
     .setVersion(swagger.info.version)
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
     .setExternalDoc('Postman Collection', `${host}/${swagger.path}-json`)
-    .build()
+    .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
