@@ -18,7 +18,7 @@ export class CategoryRepository implements IRepository {
     this.ds.manager.save(category);
   }
 
-  find(options?: Partial<FindOptions>): Promise<Category[]> {
+  find(options: Partial<FindOptions> = {}): Promise<Category[]> {
     const opts: FindManyOptions = {};
 
     if (options.offset) {
