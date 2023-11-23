@@ -24,7 +24,7 @@ export const UserSchema = new EntitySchema<UserDA>({
       type: 'varchar',
       unique: true,
       transformer: {
-        from: (value: string) => new Phone(value),
+        from: (value: string) => Phone.create(value),
         to: ({ value }: Phone) => value,
       },
     },

@@ -7,7 +7,7 @@ import { Phone } from 'src/auth/domain';
 export class SiginPipe implements PipeTransform {
   transform({ phone, password }: SignInRequestDTO): SignInDTO {
     return {
-      phone: new Phone(phone),
+      phone: Phone.create(phone),
       password,
     };
   }

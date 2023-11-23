@@ -9,9 +9,11 @@ export class Phone {
     return this._value;
   }
 
-  constructor(value: string) {
+  private constructor(value: string) {
     this.value = value;
   }
+
+  static create = (value: string) => new Phone(value);
 
   get countryCode() {
     return this.value.slice(0, 2);
