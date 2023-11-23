@@ -13,14 +13,14 @@ export class DishRepository implements IRepository {
   }
 
   find(options: Partial<FindOptions>): Promise<Dish[]> {
-    const opts: FindManyOptions = {};
+        const opts: FindManyOptions = {};
 
-    if (options.offset) {
-      opts.skip = options.offset;
-    }
-    if (options.limit) {
-      opts.take = options.limit;
-    }
+        if (options.offset) {
+          opts.skip = options.offset;
+        }
+        if (options.limit) {
+          opts.take = options.limit;
+        }
 
     return this.ds.manager.find(Dish, opts);
   }

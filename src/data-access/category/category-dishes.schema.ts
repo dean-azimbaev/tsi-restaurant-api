@@ -6,7 +6,7 @@ export class CategoryDish {
 }
 
 export const CategoryDishesSchema = new EntitySchema<CategoryDish>({
-  tableName: 'category_utility',
+  tableName: 'category_dishes',
   target: CategoryDish,
   name: 'CategoryUtilities',
   columns: {
