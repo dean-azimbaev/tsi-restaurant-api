@@ -1,7 +1,7 @@
-import { Body } from '@nestjs/common';
+import { Body, Param, ParseUUIDPipe } from '@nestjs/common';
 
 import {
-  Dish,
+  Category,
   FindCategory as FindOne,
   FindCategories as Find,
   CreateCategory as Create,
@@ -9,28 +9,56 @@ import {
   UpdateCategory as Update,
   DeleteCategory as Delete,
   UpdateCategoryDTO,
+  AddDishToCategory as AddDish,
+  RemoveDishFromCategory as RemoveDish,
+  CategoryInteractor,
 } from './application';
 
-@Dish()
+@Category()
 export class CategoryController {
+  constructor(private readonly interactor: CategoryInteractor) {}
+
   @Find()
-  async find() {}
+  async find() {
+    return this.interactor.find();
+  }
 
   @FindOne()
-  async findOne() {}
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.interactor.findOne(id);
+  }
 
   @Create()
   async create(@Body() create: CreateCategoryDTO) {
-    return create;
+    return this.interactor.create(create);
   }
 
   @Update()
-  async updateDish(@Body() update: UpdateCategoryDTO) {
-    return 'This action updates a menu';
+  async update(
+    @Body() update: UpdateCategoryDTO,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return this.interactor.update(id, update);
   }
 
   @Delete()
-  async deleteDish() {
-    return 'This action removes a menu';
+  async deleteDish(@Param('id', ParseUUIDPipe) id: string) {
+    return this.interactor.delete(id);
+  }
+
+  @AddDish()
+  async addDish(
+    @Param('id', ParseUUIDPipe) categoryId: string,
+    @Param('dish_id', ParseUUIDPipe) dishId: string,
+  ) {
+    return this.interactor.addDish(categoryId, dishId);
+  }
+
+  @RemoveDish()
+  async removeDish(
+    @Param('id', ParseUUIDPipe) categoryId: string,
+    @Param('dish_id', ParseUUIDPipe) dishId: string,
+  ) {
+    return this.interactor.removeDish(categoryId, dishId);
   }
 }

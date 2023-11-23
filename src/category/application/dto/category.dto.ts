@@ -1,4 +1,4 @@
-import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { randomUUID } from 'crypto';
 
 export class CategoryDTO {
@@ -27,10 +27,10 @@ export class CategoryDTO {
   description: string;
 
   @ApiProperty({
-    description: 'Путь к изображению блюда',
-    example: 'base64string/url',
+    description: 'Иконка категории закодированная в base64',
+    example: 'base64string',
   })
-  image: string;
+  icon: string;
 }
 
 export class CreateCategoryDTO extends OmitType(CategoryDTO, ['id']) {}

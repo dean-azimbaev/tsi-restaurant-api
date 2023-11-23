@@ -1,10 +1,18 @@
 import { Get, applyDecorators } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+
+import { CategoryDTO } from '../dto';
 
 export const FindCategories = () =>
   applyDecorators(
     Get(),
     ApiOperation({
-      description: 'Получение списка блюд',
+      summary: 'Получение списка блюд',
     }),
+    ApiOkResponse({ type: [CategoryDTO] }),
+    ApiUnauthorizedResponse({ description: 'Необходима авторизация' }),
   );

@@ -1,5 +1,11 @@
 import { Controller, UseGuards, applyDecorators } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth';
 
-export const Dish = () =>
-  applyDecorators(Controller('categories'), ApiTags('Categories CRUD'), UseGuards());
+export const Category = () =>
+  applyDecorators(
+    Controller('categories'),
+    ApiTags('Admin resources'),
+    ApiBearerAuth(),
+    UseGuards(AuthGuard),
+  );

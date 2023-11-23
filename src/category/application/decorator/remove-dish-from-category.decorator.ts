@@ -7,21 +7,26 @@ import {
   ApiParam,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Roles } from 'src/auth';
+import { Roles, User } from 'src/auth';
 import { UserRole } from 'src/auth/domain';
 
-export const DeleteCategory = () =>
+export const RemoveDishFromCategory = () =>
   applyDecorators(
-    Delete(':id'),
-    ApiOperation({ summary: 'Удалить категорию' }),
+    Delete(':id/dishes/:dish_id'),
+    Roles(UserRole.ADMIN),
+    ApiOperation({ summary: 'Убрать блюдо из категории' }),
     ApiParam({
-      description: 'Идентификатор категории',
       name: 'id',
       type: 'string',
+      description: 'Идентификатор категории',
     }),
-    Roles(UserRole.ADMIN),
+    ApiParam({
+      name: 'dish_id',
+      type: 'string',
+      description: 'Идентификатор блюда, которое нужно убрать из категории',
+    }),
     ApiUnauthorizedResponse({ description: 'Необходима авторизация' }),
     ApiForbiddenResponse({ description: 'Недостаточно прав' }),
-    ApiNotFoundResponse({ description: 'Категория не найдена' }),
+    ApiNotFoundResponse({ description: 'Категория или блюдо не найдены' }),
     ApiInternalServerErrorResponse({ description: 'Ошибка сервера' }),
   );

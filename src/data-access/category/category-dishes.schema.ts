@@ -5,7 +5,7 @@ export class CategoryDish {
   readonly dishId: string;
 }
 
-export const CategoryDishSchema = new EntitySchema<CategoryDish>({
+export const CategoryDishesSchema = new EntitySchema<CategoryDish>({
   tableName: 'category_utility',
   target: CategoryDish,
   name: 'CategoryUtilities',

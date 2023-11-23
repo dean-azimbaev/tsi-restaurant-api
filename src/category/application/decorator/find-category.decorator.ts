@@ -1,9 +1,12 @@
 import { Get, applyDecorators } from '@nestjs/common';
 import {
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CategoryDTO } from '../dto';
 
@@ -11,7 +14,7 @@ export const FindCategory = () =>
   applyDecorators(
     Get(':id'),
     ApiOperation({
-      description: 'Получение категории по id',
+      summary: 'Получение категории по id',
     }),
     ApiParam({
       description: 'Идентификатор блюда',
@@ -21,7 +24,11 @@ export const FindCategory = () =>
     ApiOkResponse({
       type: CategoryDTO,
     }),
+    ApiUnauthorizedResponse({
+      description: 'Необходима авторизация',
+    }),
     ApiNotFoundResponse({
       description: 'Блюдо не найдено',
     }),
+    ApiInternalServerErrorResponse({ description: 'Ошибка сервера' }),
   );
