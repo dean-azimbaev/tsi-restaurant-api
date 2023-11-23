@@ -7,6 +7,10 @@ export const Refresh = () =>
   applyDecorators(
     Post('refresh'),
     ApiBody({ type: RefreshDTO }),
-    ApiOperation({ description: 'Обновление токена доступа' }),
+    ApiOperation({
+      summary: 'Обновление токена доступа',
+      description:
+        'У каждого токена доступа есть определенное время жизни, и когда он умирает, его можно воскресить с помощью токена обновления',
+    }),
     ApiCreatedResponse({ type: TokenDTO }),
   );

@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ConfigService, ConfigurationModule } from './config';
 import { DishModule } from './dish';
 import { CategoryModule } from './category';
 import { AuthModule } from './auth';
 import { AdminModule } from './admin';
 import { PromocodeModule } from './promocode';
+import { ConfigService, ConfigurationModule } from './config';
+
 @Module({
   imports: [
     AdminModule,
     AuthModule,
-    ConfigurationModule,
-    CategoryModule,
     DishModule,
+    CategoryModule,
     PromocodeModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigurationModule],
