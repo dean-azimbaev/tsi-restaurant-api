@@ -1,24 +1,6 @@
 import { EntitySchema } from 'typeorm';
 
-//@TODO: move to domain layer
-class Phone {
-  private _value: string;
-
-  private constructor(value: string) {
-    this.value = value;
-  }
-
-  static create = (value: string) => new Phone(value);
-
-  get value(): string {
-    return this._value;
-  }
-
-  private set value(value: string) {
-    //@TODO: add assertion checks
-    this._value = value;
-  }
-}
+import { Phone } from 'src/auth/domain';
 
 export class CourierDA {
   id: string;
