@@ -1,4 +1,4 @@
-import { Body, Delete, Patch, Post } from '@nestjs/common';
+import { Body, Param, ParseUUIDPipe } from '@nestjs/common';
 
 import {
   Dish,
@@ -9,24 +9,33 @@ import {
   UpdateDish,
   DeleteDish,
   UpdateDishDTO,
+  DishInteractor,
 } from './application';
 
 @Dish()
 export class DishController {
+  constructor(private readonly interactor: DishInteractor) {}
+
   @FindDishes()
-  async findDishes() {}
+  async findDishes() {
+    return this.interactor.find();
+  }
 
   @FindDish()
-  async findDish() {}
+  async findDish(@Param('id', ParseUUIDPipe) id: string) {
+    return this.interactor.findOne(id);
+  }
 
   @CreateDish()
   async createDish(@Body() create: CreateDishDTO) {
-    return create;
+    return this.interactor.create(create);
   }
 
   @UpdateDish()
-  async updateDish(@Body() update: UpdateDishDTO) {
-    return 'This action updates a menu';
+  async updateDish(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() update: UpdateDishDTO) {
+    return this.interactor.update(id, update)
   }
 
   @DeleteDish()

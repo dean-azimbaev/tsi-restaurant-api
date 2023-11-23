@@ -5,7 +5,7 @@ import { AuthGuard } from 'src/auth/application';
 export const Dish = () =>
   applyDecorators(
     Controller('dishes'),
-    ApiTags('Dish CRUD'),
+    ApiTags('Admin resources'),
     ApiBearerAuth(),
     UseGuards(AuthGuard),
   );
