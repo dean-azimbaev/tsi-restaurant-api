@@ -32,13 +32,16 @@ export class TokenService implements ITokenService {
 
     const roles = await this.users.rolesOf(id);
 
-    return this.jwt.signAsync({
-      sub: id,
-      type,
-      roles,
-      expires_in: exp,
-      issued_at: Date.now(),
-    });
+    return this.jwt.signAsync(
+      {
+        sub: id,
+        type,
+        roles,
+        expires_in: exp * 1000,
+        issued_at: Date.now(),
+      },
+      { secret: this.config.jwt.secret, expiresIn: exp },
+    );
   }
 
   async refresh(jwt: string): Promise<string> {
@@ -58,7 +61,9 @@ export class TokenService implements ITokenService {
   }
 
   async verify(jwt: string): Promise<Token> {
-    const token = await this.jwt.verifyAsync<Token>(jwt);
+    const token = await this.jwt.verifyAsync<Token>(jwt, {
+      secret: this.config.jwt.secret,
+    });
 
     if (token.type !== 'access' && token.type !== 'refresh') {
       throw new Error('Invalid token type');
