@@ -12,6 +12,7 @@ import {
   AddDishToCategory as AddDish,
   RemoveDishFromCategory as RemoveDish,
   CategoryInteractor,
+  FindCategoryDishes,
 } from './application';
 
 @Category()
@@ -44,6 +45,11 @@ export class CategoryController {
   @Delete()
   async deleteDish(@Param('id', ParseUUIDPipe) id: string) {
     return this.interactor.delete(id);
+  }
+
+  @FindCategoryDishes()
+  async findCategoryDishes(@Param('id', ParseUUIDPipe) id: string) {
+    return this.interactor.findCategoryDishes(id);
   }
 
   @AddDish()

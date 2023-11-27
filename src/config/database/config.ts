@@ -19,6 +19,7 @@ export const dbConfig = () => ({
       migrations: ['dist/migrations/*{.js,.ts}'],
       migrationsRun: true,
       migrationsTableName: 'migrations_history',
+      logging: true
     },
   },
 });

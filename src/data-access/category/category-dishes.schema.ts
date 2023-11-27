@@ -8,7 +8,7 @@ export class CategoryDish {
 export const CategoryDishesSchema = new EntitySchema<CategoryDish>({
   tableName: 'category_dishes',
   target: CategoryDish,
-  name: 'CategoryUtilities',
+  name: 'CategoryDish',
   columns: {
     categoryId: {
       name: 'category_id',
@@ -19,6 +19,15 @@ export const CategoryDishesSchema = new EntitySchema<CategoryDish>({
       type: 'uuid',
       name: 'dish_id',
       primary: true,
+    },
+  },
+  relations: {
+    dishId: {
+      type: 'many-to-one',
+      target: 'Dish',
+      joinColumn: {
+        name: 'dish_id',
+      },  
     },
   },
 });

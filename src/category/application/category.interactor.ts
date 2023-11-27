@@ -7,6 +7,7 @@ import {
   UpdateCategoryDTO as UpdateDTO,
   CategoryMapper as Mapper,
 } from './dto';
+import { DishDTO } from 'src/dish/application';
 
 @Injectable()
 export class CategoryInteractor {
@@ -38,7 +39,11 @@ export class CategoryInteractor {
   };
 
   create = (dto: CreateDTO): Promise<void> => {
-    const category = this.repository.create(Mapper.toDomain(dto as DTO));
+    const category = this.repository.create({
+      ...dto,
+      parentId: dto.parent_id,
+    });
+
     return this.repository.save(category);
   };
 
@@ -50,6 +55,10 @@ export class CategoryInteractor {
     }
     //@TODO: refactor
     return this.repository.save({ ...category, ...dto });
+  };
+
+  findCategoryDishes = (categoryid: string): Promise<DishDTO[]> => {
+    return this.repository.findCategoryDishes(categoryid);
   };
 
   addDish = async (categoryId: string, dishId: string): Promise<void> => {

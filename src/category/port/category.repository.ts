@@ -6,6 +6,7 @@ import {
   FindOptions,
   CategoryRepository as IRepository,
 } from '../domain';
+import { Dish } from 'src/dish';
 
 export class CategoryRepository implements IRepository {
   constructor(private ds: DataSource) {}
@@ -39,6 +40,15 @@ export class CategoryRepository implements IRepository {
     return this.ds.manager
       .delete(Category, id)
       .then((result) => (result.affected ? id : null));
+  }
+
+  findCategoryDishes(categoryId: string): Promise<Dish[]> {
+    return this.ds.manager
+      .find(CategoryDishesSchema, {
+        where: { categoryId },
+        relations: ['dishId'],
+      })
+      .then((dishes) => dishes.map((dish) => dish.dishId as unknown as Dish));
   }
 
   async addDishToCategory(dishId: string, categoryId: string): Promise<void> {
